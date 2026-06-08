@@ -385,11 +385,42 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
 }
 
   function drawEntities(now){
-    for(const e of state.entities){
-      const img = getEntityImage(e);
-      drawSprite(img, e.x, e.y, 62, e.scale, e.rot);
+  for(const e of state.entities){
+    const img = getEntityImage(e);
+
+    if(e.alive && e.type === 'fever'){
+      drawSparkles(e.x, e.y, now);
     }
+
+    drawSprite(img, e.x, e.y, 62, e.scale, e.rot);
   }
+}
+
+  function drawSparkles(x, y, now){
+  ctx.save();
+
+  for(let i = 0; i < 8; i++){
+    const a = (Math.PI * 2 / 8) * i + now * 0.003;
+    const d = 34 + Math.sin(now * 0.006 + i) * 6;
+    const sx = x + Math.cos(a) * d;
+    const sy = y + Math.sin(a) * d;
+    const r = 3 + Math.sin(now * 0.01 + i) * 1.5;
+
+    ctx.fillStyle = i % 2 === 0
+      ? 'rgba(255, 216, 77, 0.95)'
+      : 'rgba(255, 255, 255, 0.95)';
+
+    ctx.beginPath();
+    ctx.moveTo(sx, sy - r * 2);
+    ctx.lineTo(sx + r, sy);
+    ctx.lineTo(sx, sy + r * 2);
+    ctx.lineTo(sx - r, sy);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  ctx.restore();
+}
 
   function getEntityImage(e){
     if(state.premium && state.customImage && e.type==='normal') return state.customImage;

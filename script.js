@@ -305,7 +305,9 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
     const elapsed = state.elapsed; const rank = clear ? getRank(state.currentStage.time, state.timeLeft) : {code:'C', label:'しっぱい', comment:'ざんねん！もういちどチャレンジ！'};
     if(clear){ const prev = state.best[state.currentStage.id]; if(!prev || elapsed < prev.time){ state.best[state.currentStage.id] = {time:elapsed, rank:rank.code}; saveBest(); } }
     ui.resultTitle.textContent = clear ? 'クリア！' : 'しっぱい！';
-    ui.resultScore.textContent = `${state.collected} 回収！`;
+    ui.resultScore.textContent = clear
+  ? `${elapsed.toFixed(1)}秒`
+  : `${state.collected}/${state.totalTargets}`;
     ui.rankBox.textContent = `${rank.code} ${rank.label}`;
     ui.rankComment.textContent = rank.comment;
     updatePremiumUI(); show('result');

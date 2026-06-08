@@ -216,10 +216,13 @@
   function pointerMove(e){ if(!state.running || !state.dragging || e.pointerId!==state.pointerId) return; e.preventDefault(); moveHoleToScreen(e.clientX,e.clientY); }
   function pointerUp(e){ if(e.pointerId===state.pointerId){ state.dragging=false; state.pointerId=null; } }
   function moveHoleToScreen(sx, sy){
-    state.hole.x = clamp(sx + state.camera.x, 32, state.mapW-32);
-    state.hole.y = clamp(sy + state.camera.y, 32, state.mapH-32);
-    const desired = clampCamera(state.hole.x - state.vw/2, state.hole.y - state.vh/2);
-    state.camera.x += (desired.x - state.camera.x) * .28; state.camera.y += (desired.y - state.camera.y) * .28;
+    const targetX = clamp(sx + state.camera.x, 32, state.mapW - 32);
+const targetY = clamp(sy + state.camera.y, 32, state.mapH - 32);
+
+state.hole.x += (targetX - state.hole.x) * 0.18;
+state.hole.y += (targetY - state.hole.y) * 0.18;    const desired = clampCamera(state.hole.x - state.vw/2, state.hole.y - state.vh/2);
+    state.camera.x += (desired.x - state.camera.x) * 0.08;
+state.camera.y += (desired.y - state.camera.y) * 0.08;
   }
 
   function loop(now){

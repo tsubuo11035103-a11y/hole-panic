@@ -365,8 +365,24 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
   }
 
   function drawMapBounds(){
-    ctx.save(); ctx.strokeStyle='rgba(80,140,170,.12)'; ctx.lineWidth=12; ctx.strokeRect(6,6,state.mapW-12,state.mapH-12); ctx.restore();
-  }
+  ctx.save();
+
+  // フィールド外を少し暗くする
+  ctx.fillStyle = 'rgba(80, 140, 170, 0.08)';
+  ctx.fillRect(0, 0, state.mapW, state.mapH);
+
+  // 端っこを太めのふかふか枠にする
+  ctx.strokeStyle = 'rgba(55, 150, 190, 0.45)';
+  ctx.lineWidth = 18;
+  ctx.strokeRect(9, 9, state.mapW - 18, state.mapH - 18);
+
+  // 内側に白いライン
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.75)';
+  ctx.lineWidth = 5;
+  ctx.strokeRect(24, 24, state.mapW - 48, state.mapH - 48);
+
+  ctx.restore();
+}
 
   function drawEntities(now){
     for(const e of state.entities){

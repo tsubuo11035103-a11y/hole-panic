@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/check-license.js": {
+      "runtime": "nodejs22.x"
+    }
+  }
+}

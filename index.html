@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <title>ホールパニック</title>
+
+  <link rel="icon" href="assets/icon.png" />
+  <link rel="apple-touch-icon" href="assets/icon.png" />
+  <meta name="theme-color" content="#dff6ff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="ホールパニック" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <meta property="og:title" content="ホールパニック" />
+  <meta property="og:description" content="穴を動かしてキャラをぜんぶ回収！" />
+  <meta property="og:image" content="assets/icon.png" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <canvas id="gameCanvas" aria-label="ホールパニックのゲーム画面"></canvas>
+
+    <div id="hud" class="hud hidden">
+      <div class="hud-pill">
+        <span>スコア</span><strong id="scoreText">0</strong>
+      </div>
+      <div class="hud-pill">
+        <span>残り</span><strong id="timeText">60</strong>
+      </div>
+      <button id="titleBtn" class="hud-btn" type="button">タイトルへ</button>
+    </div>
+
+    <div id="countdown" class="countdown hidden">3</div>
+
+    <section id="titleScreen" class="screen">
+      <div class="game-window title-window">
+        <p class="subcopy">ふかふかマットであそぼう！</p>
+        <h1>ホールパニック</h1>
+        <button id="startBtn" class="main-btn" type="button">スタート</button>
+        <button id="licenseBtn" class="main-btn secondary" type="button">合言葉入力</button>
+        <button id="soundBtn" class="main-btn secondary" type="button">効果音：ON</button>
+        <button id="imageBtn" class="main-btn secondary premium-only hidden" type="button">画像をえらぶ</button>
+        <input id="imageInput" class="hidden" type="file" accept="image/png,image/jpeg,image/webp" />
+        <p id="imageStatus" class="mini-text premium-only hidden">画像未選択</p>
+        <a id="noteLink" class="note-link" href="#" target="_blank" rel="noopener">note有料記事へ</a>
+      </div>
+    </section>
+
+    <section id="stageScreen" class="screen hidden">
+      <div class="game-window stage-window">
+        <h2>ステージ</h2>
+        <div id="stageList" class="stage-list"></div>
+        <button id="backTitleBtn" class="main-btn secondary small" type="button">タイトルへ</button>
+      </div>
+    </section>
+
+    <section id="licenseScreen" class="screen hidden">
+      <div class="game-window license-window">
+        <h2>合言葉入力</h2>
+        <input id="licenseInput" class="license-input" type="password" placeholder="合言葉" autocomplete="off" />
+        <button id="unlockBtn" class="main-btn" type="button">解放</button>
+        <p id="licenseMessage" class="mini-text"></p>
+        <button id="closeLicenseBtn" class="main-btn secondary small" type="button">戻る</button>
+      </div>
+    </section>
+
+    <section id="introScreen" class="screen hidden">
+      <div class="game-window intro-window">
+        <p id="introStage" class="stage-label">STAGE 1</p>
+        <h2 id="introTitle">おひるね</h2>
+        <p id="introText">ねているキャラをぜんぶ回収しよう！</p>
+      </div>
+    </section>
+
+    <section id="resultScreen" class="screen hidden">
+      <div class="game-window result-window">
+        <h2 id="resultTitle">クリア！</h2>
+        <p id="resultScore" class="result-score">0 回収！</p>
+        <p class="rank-caption">ランク</p>
+        <div id="rankBox" class="rank-box">S たつじん</div>
+        <p id="rankComment" class="rank-comment">すごい！ホールのたつじんだ！</p>
+        <button id="retryBtn" class="main-btn" type="button">もういっかい！</button>
+        <button id="stageSelectBtn" class="main-btn secondary" type="button">ステージ選択へ</button>
+        <a id="resultNoteLink" class="note-link" href="#" target="_blank" rel="noopener">note有料記事へ</a>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -60,10 +60,6 @@ button,input{font:inherit}
   padding-right: 4px;
   box-sizing: border-box;
 }
-* {
-  box-sizing: border-box;
-}
-
 button {
   max-width: 100%;
 }

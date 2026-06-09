@@ -9,11 +9,29 @@
   --shadow:0 18px 45px rgba(77,114,143,.26);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--sky);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:var(--ink);touch-action:none;user-select:none}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+}
 button,input{font:inherit}
 #app{position:fixed;inset:0;overflow:hidden;background:linear-gradient(180deg,#dff6ff,#fff7fb)}
 #gameCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;background:#e9f8ff}
-.screen{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:18px;z-index:10;background:rgba(226,247,255,.18);backdrop-filter:blur(1px)}
+.screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
 .hidden{display:none!important}
 .game-window{width:min(92vw,560px);max-height:92dvh;overflow:auto;border-radius:34px;padding:28px 22px;background:var(--card);box-shadow:var(--shadow), inset 0 0 0 2px rgba(255,255,255,.72);text-align:center;border:1px solid rgba(145,180,205,.22)}
 .title-window h1{font-size:clamp(42px,11vw,68px);line-height:1.02;margin:6px 0 24px;font-weight:900;letter-spacing:.02em;text-shadow:0 4px 0 rgba(255,255,255,.7),0 10px 26px rgba(48,126,185,.2)}
@@ -27,3 +45,25 @@ button,input{font:inherit}
   align-items: center;
   justify-content: space-between;
 }.stage-card .stage-name{font-size:18px}}
+.menu-window,
+.stage-window {
+  width: min(88vw, 520px);
+  max-width: 88vw;
+  max-height: min(78dvh, 680px);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+#stageList {
+  max-height: 58dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 4px;
+  box-sizing: border-box;
+}
+* {
+  box-sizing: border-box;
+}
+
+button {
+  max-width: 100%;
+}

@@ -254,9 +254,21 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
     const st = state.currentStage;
     for(const e of state.entities){
       if(!e.alive){
-        e.falling += dt*4; e.scale = Math.max(0, 1 - e.falling); e.rot += dt*6;
-        continue;
-      }
+  // 落下演出をゆっくり見せる
+  e.falling += dt * 1.8;
+
+  // 穴の中心に吸い込まれる
+  e.x += (state.hole.x - e.x) * 0.08;
+  e.y += (state.hole.y - e.y) * 0.08;
+
+  // 少しずつ小さくして消える
+  e.scale = Math.max(0, 1 - e.falling);
+
+  // くるっと回る
+  e.rot += dt * 4;
+
+  continue;
+}
       if(st.mode.includes('run')){
         const d = dist(e.x,e.y,state.hole.x,state.hole.y);
         if(d < 260){
@@ -274,7 +286,7 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
       const collectDistance = state.hole.r + e.r * .55;
       if(dist(e.x,e.y,state.hole.x,state.hole.y) < collectDistance) collectEntity(e, now);
     }
-    state.entities = state.entities.filter(e => e.alive || e.scale > .03);
+    state.entities = state.entities.filter(e => e.alive || e.falling < 1.15);
   }
 
   function wander(e, dt, amount){ e.vx += (Math.random()-.5)*amount*dt*8; e.vy += (Math.random()-.5)*amount*dt*8; }

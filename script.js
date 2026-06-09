@@ -348,13 +348,22 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
   }
 
   function drawGameWorld(now){
-    ctx.save(); ctx.translate(-state.camera.x, -state.camera.y);
-    drawMapBounds();
-    drawEntities(now);
-    drawHole(now);
-    drawParticles();
-    ctx.restore();
-  }
+  ctx.save();
+  ctx.translate(-state.camera.x, -state.camera.y);
+
+  drawMapBounds();
+
+  // 先に穴を描く
+  drawHole(now);
+
+  // その上にキャラを描く
+  // 落下中の画像も見えるようになる
+  drawEntities(now);
+
+  drawParticles();
+
+  ctx.restore();
+}
 
   function drawPreviewWorld(now){
     const chars = [

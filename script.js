@@ -170,19 +170,45 @@ window.visualViewport?.addEventListener('scroll', resize, {passive:true});
   }
 
   function selectStage(st){
-    state.currentStage = st;
-    ui.introStage.textContent = `STAGE ${st.id}`; ui.introTitle.textContent = st.name; ui.introText.textContent = st.intro;
-    show('intro');
-    setTimeout(() => startCountdown(st), 1050);
+  if(state.countingDown || state.running) return;
+
+  state.countingDown = true;
+  state.countdownToken++;
+
+  const token = state.countdownToken;
+
+  state.currentStage = st;
+  ui.introStage.textContent = `STAGE ${st.id}`;
+  ui.introTitle.textContent = st.name;
+  ui.introText.textContent = st.intro;
+
+  show('intro');
+
+  setTimeout(() => {
+    if(token === state.countdownToken) startCountdown(st, token);
+  }, 1050);
+}
+
+  async function startCountdown(st, token){
+  screens.intro.classList.add('hidden');
+  ui.countdown.classList.remove('hidden');
+
+  for(const v of ['3','2','1','GO!']){
+    if(token !== state.countdownToken) return;
+
+    ui.countdown.textContent = v;
+
+    if(v !== 'GO!') play('countdown');
+
+    await wait(v === 'GO!' ? 450 : 650);
   }
 
-  async function startCountdown(st){
-    screens.intro.classList.add('hidden'); ui.countdown.classList.remove('hidden');
-    for(const v of ['3','2','1','GO!']){
-      ui.countdown.textContent = v; play('countdown'); await wait(v==='GO!' ? 450 : 650);
-    }
-    ui.countdown.classList.add('hidden'); startGame(st);
-  }
+  if(token !== state.countdownToken) return;
+
+  ui.countdown.classList.add('hidden');
+  state.countingDown = false;
+  startGame(st);
+}
   function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
   function startGame(st){

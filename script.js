@@ -65,7 +65,8 @@
     vw:0, vh:0, dpr:1, mapW:0, mapH:0, camera:{x:0,y:0}, hole:{x:0,y:0,r:42, level:1},
     entities:[], collected:0, totalTargets:0, score:0, timeLeft:0, startAt:0, elapsed:0,
     feverUntil:0, blackUntil:0, dragging:false, pointerId:null,
-    particles:[], previewT:0,
+    particles:[], previewT:0,countingDown:false,
+countdownToken:0,
   };
 
   const imgs = {};

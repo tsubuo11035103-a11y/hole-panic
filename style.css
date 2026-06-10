@@ -353,7 +353,7 @@ button, input {
 
 @media (max-height:700px) {
   .game-window {
-    width:80vw;
+    width:100%;
     max-width:390px;
     max-height:70dvh;
     padding:14px 12px;

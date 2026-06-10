@@ -202,7 +202,7 @@ state.countdownToken++;state.running=false; renderStageList(); show('stage'); }
     if(token !== state.countdownToken) return;
 
     ui.countdown.textContent = v;
-    await wait(v === 'GO!' ? 650 : 900);
+    await wait(v === 'GO!' ? 650 : 950);
   }
 
   if(token !== state.countdownToken) return;

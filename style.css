@@ -27,12 +27,14 @@ button, input {
 }
 
 #app {
-  position:fixed;
-  inset:0;
-  overflow:hidden;
-  background:linear-gradient(180deg,#dff6ff,#fff7fb);
+  position: fixed;
+  left: var(--vvx, 0px);
+  top: var(--vvy, 0px);
+  width: var(--vvw, 100vw);
+  height: var(--vvh, 100dvh);
+  overflow: hidden;
+  background: linear-gradient(180deg,#dff6ff,#fff7fb);
 }
-
 #gameCanvas {
   position:absolute;
   inset:0;
@@ -49,7 +51,10 @@ button, input {
 
 .screen {
   position: fixed;
-  inset: 0;
+  left: var(--vvx, 0px);
+  top: var(--vvy, 0px);
+  width: var(--vvw, 100vw);
+  height: var(--vvh, 100dvh);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -352,13 +357,6 @@ button, input {
 }
 
 @media (max-height:700px) {
-  .game-window {
-    width:100%;
-    max-width:390px;
-    max-height:70dvh;
-    padding:14px 12px;
-    border-radius:24px;
-  }
 
   .title-window h1 {
     font-size:34px;

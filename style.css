@@ -596,3 +596,102 @@ input {
 .rank-comment {
   font-size: 16px;
 }
+
+/* ===== 強制中央寄せ＆小型化 ===== */
+
+.screen {
+  display: block !important;
+  padding: 0 !important;
+}
+
+.game-window {
+  position: absolute !important;
+  left: 50% !important;
+  top: 44% !important;
+  transform: translate(-50%, -50%) !important;
+
+  width: 78vw !important;
+  max-width: 390px !important;
+  max-height: 66dvh !important;
+
+  padding: 14px 12px !important;
+  border-radius: 24px !important;
+  overflow: hidden !important;
+}
+
+/* タイトル */
+.title-window h1 {
+  font-size: clamp(32px, 8vw, 44px) !important;
+  margin: 0 0 18px !important;
+}
+
+.main-btn {
+  padding: 12px 12px !important;
+  font-size: 21px !important;
+}
+
+.note-link {
+  font-size: 21px !important;
+}
+
+/* ステージ画面 */
+.stage-window h2 {
+  font-size: 28px !important;
+  margin: 0 0 8px !important;
+}
+
+#stageList {
+  max-height: none !important;
+  overflow: visible !important;
+  display: grid !important;
+  gap: 5px !important;
+  padding: 0 !important;
+}
+
+.stage-card {
+  min-height: 40px !important;
+  padding: 5px 8px !important;
+  border-radius: 12px !important;
+}
+
+.stage-card .stage-num {
+  font-size: 9px !important;
+}
+
+.stage-card .stage-name {
+  font-size: 15px !important;
+}
+
+.stage-card .stage-meta {
+  font-size: 8px !important;
+}
+
+.stage-card .play-badge {
+  min-width: 52px !important;
+  padding: 5px 7px !important;
+  font-size: 12px !important;
+}
+
+.stage-window .main-btn.small {
+  margin-top: 8px !important;
+  padding: 10px !important;
+  font-size: 18px !important;
+}
+
+/* 結果画面 */
+.result-window h2 {
+  font-size: 28px !important;
+}
+
+.result-score {
+  font-size: 26px !important;
+}
+
+.rank-box {
+  font-size: 38px !important;
+  padding: 9px 8px !important;
+}
+
+.rank-comment {
+  font-size: 15px !important;
+}

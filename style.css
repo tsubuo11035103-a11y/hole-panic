@@ -49,29 +49,26 @@ button, input {
 
 .screen {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
+  display: grid;
+  place-items: center;
   padding: 10px 24px;
 }
-
 .game-window {
-  width:100%;
-  max-width:420px;
-  max-height:74dvh;
-  padding:18px 14px;
-  border-radius:28px;
-  overflow:hidden;
-  background:var(--card);
-  box-shadow:var(--shadow), inset 0 0 0 2px rgba(255,255,255,.72);
-  border:1px solid rgba(145,180,205,.22);
-  text-align:center;
-  backdrop-filter:blur(10px);
+  width: 100%;
+  max-width: 420px;
+  max-height: 74dvh;
+  padding: 18px 14px;
+  border-radius: 28px;
+  overflow: hidden;
+  background: var(--card);
+  box-shadow: var(--shadow), inset 0 0 0 2px rgba(255,255,255,.72);
+  border: 1px solid rgba(145,180,205,.22);
+  text-align: center;
+  backdrop-filter: blur(10px);
 }
 
 .title-window h1 {

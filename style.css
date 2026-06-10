@@ -505,3 +505,94 @@ input {
     font-size: 38px;
   }
 }
+/* ===== 画面サイズ最終調整 ===== */
+
+.screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.game-window {
+  width: min(78vw, 390px);
+  max-width: 390px;
+  max-height: 72dvh;
+  margin: 0 auto;
+  padding: 16px 12px;
+  border-radius: 24px;
+}
+
+/* タイトル */
+.title-window h1 {
+  font-size: clamp(32px, 8vw, 44px);
+  margin: 0 0 18px;
+}
+
+/* ステージ選択を1画面に収める */
+.stage-window h2 {
+  font-size: 30px;
+  margin: 0 0 10px;
+}
+
+#stageList {
+  max-height: none;
+  overflow: visible;
+  display: grid;
+  gap: 6px;
+  padding: 0;
+}
+
+.stage-card {
+  min-height: 43px;
+  padding: 6px 10px;
+  border-radius: 14px;
+}
+
+.stage-card .stage-num {
+  font-size: 10px;
+}
+
+.stage-card .stage-name {
+  font-size: 17px;
+}
+
+.stage-card .stage-meta {
+  font-size: 9px;
+}
+
+.stage-card .play-badge {
+  min-width: 58px;
+  padding: 6px 8px;
+  font-size: 13px;
+}
+
+/* ステージ選択のタイトルへボタン */
+.stage-window .main-btn.small {
+  margin-top: 10px;
+  padding: 11px 12px;
+  font-size: 20px;
+}
+
+/* 結果画面も小さく */
+.result-window {
+  max-height: 72dvh;
+  padding: 16px 12px;
+}
+
+.result-window h2 {
+  font-size: 30px;
+}
+
+.result-score {
+  font-size: 28px;
+}
+
+.rank-box {
+  font-size: clamp(34px, 9vw, 46px);
+  padding: 10px 8px;
+}
+
+.rank-comment {
+  font-size: 16px;
+}

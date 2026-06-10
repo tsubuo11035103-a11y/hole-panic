@@ -515,7 +515,7 @@ input {
 }
 
 .game-window {
-  width: min(78vw, 390px);
+  width: min(74vw, 370px);
   max-width: 390px;
   max-height: 72dvh;
   margin: 0 auto;

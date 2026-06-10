@@ -406,3 +406,16 @@ button, input {
     font-size:15px;
   }
 }
+/* 画面レイヤーを確実に中央配置 */
+.screen:not(.hidden) {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* ウィンドウを確実に中央配置 */
+.screen:not(.hidden) > .game-window {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  transform: none !important;
+}

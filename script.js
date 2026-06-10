@@ -129,8 +129,10 @@ window.visualViewport?.addEventListener('scroll', resize, {passive:true});
     });
   }
 
-  function goTitle(){ state.running=false; state.currentStage=null; updatePremiumUI(); show('title'); }
-  function goStage(){ state.running=false; renderStageList(); show('stage'); }
+  function goTitle(){ state.countingDown = false;
+state.countdownToken++;state.running=false; state.currentStage=null; updatePremiumUI(); show('title'); }
+  function goStage(){ state.countingDown = false;
+state.countdownToken++;state.running=false; renderStageList(); show('stage'); }
 
   ui.startBtn.addEventListener('click', () => { requestFs(); goStage(); });
   ui.backTitleBtn.addEventListener('click', goTitle);

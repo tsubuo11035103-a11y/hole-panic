@@ -157,9 +157,10 @@ button, input {
 }
 
 #stageList {
-  max-height: 45dvh;
+  max-height: 44dvh;
   overflow-y: auto;
   overflow-x: hidden;
+  padding-top: 4px;
 }
 
 #backTitleBtn {

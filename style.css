@@ -1,697 +1,405 @@
 :root {
   --ink:#203040;
   --muted:#6f8192;
-  --sky:#dff6ff;
-  --card:rgba(255,255,255,.82);
+  --card:rgba(255,255,255,.84);
   --blue:#35b8ff;
-  --blue2:#58cfff;
-  --green:#53df6b;
   --shadow:0 18px 45px rgba(77,114,143,.24);
 }
 
 * {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
-html,
-body {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
-  overscroll-behavior: none;
-  touch-action: none;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-  color: var(--ink);
+html, body {
+  width:100%;
+  height:100%;
+  margin:0;
+  overflow:hidden;
+  touch-action:none;
+  overscroll-behavior:none;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  color:var(--ink);
 }
 
-button,
-input {
-  font: inherit;
+button, input {
+  font:inherit;
 }
 
 #app {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  background: linear-gradient(180deg,#dff6ff,#fff7fb);
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  background:linear-gradient(180deg,#dff6ff,#fff7fb);
 }
 
 #gameCanvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  touch-action: none;
-  background: #e9f8ff;
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+  touch-action:none;
+  background:#e9f8ff;
 }
 
 .hidden {
-  display: none !important;
+  display:none!important;
 }
 
 .screen {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100dvh;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-  padding: 16px;
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  padding:10px;
 }
 
 .game-window {
-  width: min(86vw, 500px);
-  max-width: 86vw;
-  max-height: 80dvh;
-  overflow: hidden;
-  border-radius: 28px;
-  padding: 20px 16px;
-  background: var(--card);
-  box-shadow: var(--shadow), inset 0 0 0 2px rgba(255,255,255,.72);
-  text-align: center;
-  border: 1px solid rgba(145,180,205,.22);
-  backdrop-filter: blur(10px);
+  width:82vw;
+  max-width:420px;
+  max-height:74dvh;
+  padding:18px 14px;
+  border-radius:28px;
+  overflow:hidden;
+  background:var(--card);
+  box-shadow:var(--shadow), inset 0 0 0 2px rgba(255,255,255,.72);
+  border:1px solid rgba(145,180,205,.22);
+  text-align:center;
+  backdrop-filter:blur(10px);
 }
+
 .title-window h1 {
-  font-size: clamp(42px, 11vw, 68px);
-  line-height: 1.02;
-  margin: 4px 0 24px;
-  font-weight: 900;
-  letter-spacing: .02em;
-  text-shadow: 0 4px 0 rgba(255,255,255,.65), 0 10px 26px rgba(48,126,185,.18);
+  font-size:clamp(36px,9vw,52px);
+  line-height:1.05;
+  margin:0 0 20px;
+  font-weight:900;
+  letter-spacing:.02em;
+  text-shadow:0 4px 0 rgba(255,255,255,.65),0 10px 26px rgba(48,126,185,.18);
 }
 
 .game-window h2 {
-  font-size: 36px;
-  line-height: 1.05;
-  margin: 0 0 14px;
-  font-weight: 900;
+  font-size:34px;
+  line-height:1.05;
+  margin:0 0 12px;
+  font-weight:900;
 }
 
 .main-btn {
-  width: 100%;
-  border: none;
-  border-radius: 999px;
-  padding: 16px 18px;
-  margin: 8px 0;
-  background: linear-gradient(90deg,#17c6ec,#77d7ff);
-  color: #123;
-  font-size: clamp(22px, 6vw, 32px);
-  font-weight: 900;
-  box-shadow: 0 10px 24px rgba(50,170,230,.22);
-  cursor: pointer;
+  width:100%;
+  border:none;
+  border-radius:999px;
+  padding:13px 14px;
+  margin:8px 0;
+  background:linear-gradient(90deg,#17c6ec,#77d7ff);
+  color:#123;
+  font-size:22px;
+  font-weight:900;
+  box-shadow:0 10px 24px rgba(50,170,230,.22);
 }
 
 .main-btn.secondary {
-  background: linear-gradient(90deg,#eaf8ff,#f7fdff);
-  color: #158fdd;
-  box-shadow: inset 0 0 0 2px rgba(110,198,246,.22);
+  background:linear-gradient(90deg,#eaf8ff,#f7fdff);
+  color:#158fdd;
+  box-shadow:inset 0 0 0 2px rgba(110,198,246,.22);
 }
 
 .main-btn.small {
-  font-size: 22px;
-  padding: 14px 16px;
-  margin-top: 16px;
+  font-size:20px;
+  padding:12px 14px;
+  margin-top:10px;
 }
 
 .note-link {
-  display: inline-block;
-  margin-top: 12px;
-  color: #ffb92e;
-  text-decoration: none;
-  font-size: 26px;
-  font-weight: 900;
-  text-shadow: 0 4px 16px rgba(255,185,46,.35);
+  display:inline-block;
+  margin-top:10px;
+  color:#ffb92e;
+  text-decoration:none;
+  font-size:22px;
+  font-weight:900;
+  text-shadow:0 4px 16px rgba(255,185,46,.35);
 }
 
 .mini-text {
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--muted);
-  min-height: 1.3em;
-  margin: 4px 0 8px;
+  font-size:15px;
+  font-weight:800;
+  color:var(--muted);
+  min-height:1.3em;
+  margin:4px 0 8px;
 }
 
 .license-input {
-  width: 100%;
-  border: none;
-  outline: none;
-  border-radius: 20px;
-  padding: 18px;
-  background: #fff;
-  box-shadow: inset 0 0 0 2px rgba(110,130,150,.16);
-  font-size: 24px;
-  font-weight: 800;
-  text-align: center;
-  margin: 8px 0 12px;
+  width:100%;
+  border:none;
+  outline:none;
+  border-radius:18px;
+  padding:15px;
+  background:#fff;
+  box-shadow:inset 0 0 0 2px rgba(110,130,150,.16);
+  font-size:22px;
+  font-weight:800;
+  text-align:center;
+  margin:8px 0 12px;
 }
 
+/* ステージ */
 .stage-window {
-  padding: 16px 16px;
+  padding:16px 14px;
 }
 
 .stage-window h2 {
-  font-size: 32px;
-  margin: 0 0 10px;
+  font-size:30px;
+  margin:0 0 10px;
 }
 
 #stageList {
-  max-height: 54dvh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-right: 4px;
+  display:grid;
+  gap:6px;
+  max-height:none;
+  overflow:visible;
+  padding:0;
 }
 
 .stage-card {
-  min-height: 48px;
-  padding: 8px 12px;
+  width:100%;
+  min-height:42px;
+  padding:6px 9px;
+  border:none;
+  border-radius:14px;
+  background:rgba(255,255,255,.82);
+  box-shadow:inset 0 0 0 2px rgba(145,180,205,.16);
+  color:var(--ink);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  text-align:left;
+}
+
+.stage-card.locked {
+  opacity:.48;
+  filter:saturate(.65);
+  pointer-events:none;
+}
+
+.stage-card .stage-num {
+  font-size:10px;
+  font-weight:900;
+  color:var(--muted);
+  letter-spacing:.06em;
 }
 
 .stage-card .stage-name {
-  font-size: 20px;
+  font-size:17px;
+  font-weight:900;
+  color:#129af0;
+  line-height:1.05;
 }
 
 .stage-card .stage-meta {
-  font-size: 11px;
+  font-size:9px;
+  font-weight:900;
+  color:var(--muted);
+  margin-top:2px;
 }
 
 .stage-card .play-badge {
-  min-width: 68px;
-  padding: 8px 10px;
-  font-size: 15px;
+  min-width:56px;
+  padding:6px 8px;
+  border-radius:999px;
+  background:#eaf8ff;
+  color:#1599eb;
+  font-size:13px;
+  font-weight:900;
+  text-align:center;
+  flex-shrink:0;
 }
 
+/* HUD */
 .hud {
-  position: absolute;
-  z-index: 8;
-  top: calc(env(safe-area-inset-top) + 10px);
-  left: 10px;
-  right: 10px;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  pointer-events: none;
+  position:absolute;
+  z-index:8;
+  top:calc(env(safe-area-inset-top) + 10px);
+  left:10px;
+  right:10px;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  pointer-events:none;
 }
 
 .hud-pill,
 .hud-btn {
-  border: none;
-  border-radius: 999px;
-  background: rgba(255,255,255,.88);
-  box-shadow: 0 8px 24px rgba(72,102,125,.18);
-  padding: 8px 12px;
-  color: var(--ink);
-  font-weight: 900;
+  border:none;
+  border-radius:999px;
+  background:rgba(255,255,255,.88);
+  box-shadow:0 8px 24px rgba(72,102,125,.18);
+  padding:8px 12px;
+  color:var(--ink);
+  font-weight:900;
 }
 
 .hud-pill {
-  display: flex;
-  gap: 7px;
-  align-items: baseline;
-  min-width: 78px;
-  justify-content: center;
+  display:flex;
+  gap:7px;
+  align-items:baseline;
+  min-width:78px;
+  justify-content:center;
 }
 
 .hud-pill span {
-  font-size: 12px;
-  color: var(--muted);
+  font-size:12px;
+  color:var(--muted);
 }
 
 .hud-pill strong {
-  font-size: 23px;
+  font-size:23px;
 }
 
 .hud-btn {
-  margin-left: auto;
-  pointer-events: auto;
-  font-size: 14px;
-  padding: 11px 14px;
-  color: #168bd0;
+  margin-left:auto;
+  pointer-events:auto;
+  font-size:14px;
+  padding:11px 14px;
+  color:#168bd0;
 }
 
+/* カウントダウン */
 .countdown {
-  position: absolute;
-  z-index: 20;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(86px,30vw,180px);
-  font-weight: 1000;
-  color: #fff;
-  text-shadow: 0 0 18px rgba(0,174,255,.9),0 8px 30px rgba(30,80,120,.5);
+  position:absolute;
+  z-index:20;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:clamp(86px,30vw,180px);
+  font-weight:1000;
+  color:#fff;
+  text-shadow:0 0 18px rgba(0,174,255,.9),0 8px 30px rgba(30,80,120,.5);
 }
 
+/* イントロ */
 .intro-window {
-  animation: pop .28s ease;
+  animation:pop .28s ease;
 }
 
 .intro-window h2 {
-  color: #1599eb;
+  color:#1599eb;
 }
 
 .intro-window p:last-child {
-  font-size: 22px;
-  font-weight: 900;
-  line-height: 1.55;
+  font-size:20px;
+  font-weight:900;
+  line-height:1.45;
 }
 
+/* 結果 */
 .result-window {
-  padding: 18px 16px;
+  padding:16px 14px;
+  max-height:74dvh;
 }
 
 .result-window h2 {
-  font-size: 34px;
-  margin-bottom: 8px;
+  font-size:32px;
+  margin:0 0 8px;
 }
 
 .result-score {
-  font-size: 30px;
+  margin:0 0 8px;
+  font-size:30px;
+  font-weight:1000;
+  color:#1599eb;
+}
+
+.rank-caption {
+  margin:6px 0 0;
+  font-size:15px;
+  color:var(--muted);
+  font-weight:900;
 }
 
 .rank-box {
-  font-size: clamp(36px, 11vw, 56px);
-  padding: 12px 8px;
+  margin:4px auto 8px;
+  padding:10px 8px;
+  border-radius:20px;
+  background:linear-gradient(90deg,#eaf8ff,#fff3fb);
+  font-size:clamp(34px,10vw,52px);
+  font-weight:1000;
+  color:#56df75;
 }
 
 .rank-comment {
-  font-size: 18px;
-  margin: 6px 0 12px;
+  font-size:16px;
+  font-weight:900;
+  line-height:1.35;
+  margin:6px 0 12px;
 }
-.rank-caption {
-  margin: 12px 0 0;
-  color: var(--muted);
-  font-weight: 900;
-}
-
-
 
 @keyframes pop {
-  from {
-    transform: scale(.94);
-    opacity: .3;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+  from { transform:scale(.94); opacity:.3; }
+  to { transform:scale(1); opacity:1; }
 }
 
-@media (max-height: 680px) {
+@media (max-height:700px) {
   .game-window {
-    max-height: 78dvh;
-    padding: 18px 16px;
-    border-radius: 26px;
+    width:80vw;
+    max-width:390px;
+    max-height:70dvh;
+    padding:14px 12px;
+    border-radius:24px;
   }
 
   .title-window h1 {
-    font-size: 40px;
+    font-size:34px;
+    margin-bottom:16px;
   }
 
   .main-btn {
-    padding: 13px;
-    font-size: 22px;
+    padding:10px 12px;
+    font-size:20px;
   }
 
   .note-link {
-    font-size: 22px;
+    font-size:20px;
   }
 
-  .stage-card .stage-name {
-    font-size: 18px;
-  }
-
-  #stageList {
-    max-height: 52dvh;
-  }
-}
-/* ===== 最終調整：画面内に収める ===== */
-
-.screen {
-  padding: 10px;
-}
-
-.game-window {
-  width: 82vw;
-  max-width: 430px;
-  max-height: 76dvh;
-  padding: 18px 14px;
-  border-radius: 26px;
-  overflow: hidden;
-}
-
-.title-window h1 {
-  font-size: clamp(34px, 9vw, 52px);
-  margin-bottom: 18px;
-}
-
-.main-btn {
-  padding: 13px 14px;
-  font-size: 22px;
-}
-
-.note-link {
-  font-size: 22px;
-}
-
-/* ステージ選択 */
-.stage-window h2 {
-  font-size: 32px;
-  margin-bottom: 10px;
-}
-
-#stageList {
-  max-height: 46dvh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  display: grid;
-  gap: 8px;
-  padding-right: 2px;
-}
-
-.stage-card {
-  width: 100%;
-  min-height: 54px;
-  padding: 9px 12px;
-  border: none;
-  border-radius: 16px;
-  background: rgba(255,255,255,.82);
-  box-shadow: inset 0 0 0 2px rgba(145,180,205,.16);
-  color: var(--ink);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  text-align: left;
-}
-
-.stage-card .stage-num {
-  font-size: 11px;
-  font-weight: 900;
-  color: var(--muted);
-  letter-spacing: .06em;
-}
-
-.stage-card .stage-name {
-  font-size: 19px;
-  font-weight: 900;
-  color: #129af0;
-  line-height: 1.05;
-}
-
-.stage-card .stage-meta {
-  font-size: 10px;
-  font-weight: 900;
-  color: var(--muted);
-  margin-top: 2px;
-}
-
-.stage-card .play-badge {
-  min-width: 62px;
-  padding: 7px 9px;
-  border-radius: 999px;
-  background: #eaf8ff;
-  color: #1599eb;
-  font-size: 14px;
-  font-weight: 900;
-  text-align: center;
-  flex-shrink: 0;
-}
-
-.stage-card.locked {
-  opacity: .48;
-  filter: saturate(.65);
-  pointer-events: none;
-}
-
-/* 結果画面 */
-.result-window {
-  max-height: 76dvh;
-  padding: 18px 14px;
-}
-
-.result-window h2 {
-  font-size: 34px;
-  margin: 0 0 8px;
-}
-
-.result-score {
-  font-size: 30px;
-  margin: 0 0 8px;
-  font-weight: 1000;
-  color: #1599eb;
-}
-
-.rank-caption {
-  margin: 6px 0 0;
-  font-size: 16px;
-}
-
-.rank-box {
-  margin: 4px auto 8px;
-  padding: 10px 8px;
-  border-radius: 20px;
-  background: linear-gradient(90deg,#eaf8ff,#fff3fb);
-  font-size: clamp(36px, 10vw, 52px);
-  font-weight: 1000;
-  color: #56df75;
-}
-
-.rank-comment {
-  font-size: 17px;
-  line-height: 1.35;
-  margin: 6px 0 12px;
-}
-
-/* 低い画面用 */
-@media (max-height: 700px) {
-  .game-window {
-    width: 80vw;
-    max-height: 72dvh;
-    padding: 14px 12px;
-  }
-
-  .title-window h1 {
-    font-size: 34px;
-  }
-
-  .main-btn {
-    padding: 10px 12px;
-    font-size: 20px;
-  }
-
-  #stageList {
-    max-height: 42dvh;
+  .stage-window h2 {
+    font-size:28px;
   }
 
   .stage-card {
-    min-height: 48px;
-    padding: 7px 10px;
+    min-height:38px;
+    padding:5px 8px;
   }
 
   .stage-card .stage-name {
-    font-size: 17px;
+    font-size:15px;
+  }
+
+  .stage-card .stage-meta {
+    font-size:8px;
+  }
+
+  .stage-card .play-badge {
+    min-width:52px;
+    font-size:12px;
   }
 
   .result-window h2 {
-    font-size: 30px;
+    font-size:28px;
+  }
+
+  .result-score {
+    font-size:26px;
   }
 
   .rank-box {
-    font-size: 38px;
+    font-size:38px;
   }
-}
-/* ===== 画面サイズ最終調整 ===== */
 
-.screen {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 0;
-}
-
-.game-window {
-  width: min(74vw, 370px);
-  max-width: 390px;
-  max-height: 72dvh;
-  margin: 0 auto;
-  padding: 16px 12px;
-  border-radius: 24px;
-}
-
-/* タイトル */
-.title-window h1 {
-  font-size: clamp(32px, 8vw, 44px);
-  margin: 0 0 18px;
-}
-
-/* ステージ選択を1画面に収める */
-.stage-window h2 {
-  font-size: 30px;
-  margin: 0 0 10px;
-}
-
-#stageList {
-  max-height: none;
-  overflow: visible;
-  display: grid;
-  gap: 6px;
-  padding: 0;
-}
-
-.stage-card {
-  min-height: 43px;
-  padding: 6px 10px;
-  border-radius: 14px;
-}
-
-.stage-card .stage-num {
-  font-size: 10px;
-}
-
-.stage-card .stage-name {
-  font-size: 17px;
-}
-
-.stage-card .stage-meta {
-  font-size: 9px;
-}
-
-.stage-card .play-badge {
-  min-width: 58px;
-  padding: 6px 8px;
-  font-size: 13px;
-}
-
-/* ステージ選択のタイトルへボタン */
-.stage-window .main-btn.small {
-  margin-top: 10px;
-  padding: 11px 12px;
-  font-size: 20px;
-}
-
-/* 結果画面も小さく */
-.result-window {
-  max-height: 72dvh;
-  padding: 16px 12px;
-}
-
-.result-window h2 {
-  font-size: 30px;
-}
-
-.result-score {
-  font-size: 28px;
-}
-
-.rank-box {
-  font-size: clamp(34px, 9vw, 46px);
-  padding: 10px 8px;
-}
-
-.rank-comment {
-  font-size: 16px;
-}
-
-/* ===== 強制中央寄せ＆小型化 ===== */
-
-.screen {
-  display: block !important;
-  padding: 0 !important;
-}
-
-.game-window {
-  position: absolute !important;
-  left: 50% !important;
-  top: 44% !important;
-  transform: translate(-50%, -50%) !important;
-
-  width: 78vw !important;
-  max-width: 390px !important;
-  max-height: 66dvh !important;
-
-  padding: 14px 12px !important;
-  border-radius: 24px !important;
-  overflow: hidden !important;
-}
-
-/* タイトル */
-.title-window h1 {
-  font-size: clamp(32px, 8vw, 44px) !important;
-  margin: 0 0 18px !important;
-}
-
-.main-btn {
-  padding: 12px 12px !important;
-  font-size: 21px !important;
-}
-
-.note-link {
-  font-size: 21px !important;
-}
-
-/* ステージ画面 */
-.stage-window h2 {
-  font-size: 28px !important;
-  margin: 0 0 8px !important;
-}
-
-#stageList {
-  max-height: none !important;
-  overflow: visible !important;
-  display: grid !important;
-  gap: 5px !important;
-  padding: 0 !important;
-}
-
-.stage-card {
-  min-height: 40px !important;
-  padding: 5px 8px !important;
-  border-radius: 12px !important;
-}
-
-.stage-card .stage-num {
-  font-size: 9px !important;
-}
-
-.stage-card .stage-name {
-  font-size: 15px !important;
-}
-
-.stage-card .stage-meta {
-  font-size: 8px !important;
-}
-
-.stage-card .play-badge {
-  min-width: 52px !important;
-  padding: 5px 7px !important;
-  font-size: 12px !important;
-}
-
-.stage-window .main-btn.small {
-  margin-top: 8px !important;
-  padding: 10px !important;
-  font-size: 18px !important;
-}
-
-/* 結果画面 */
-.result-window h2 {
-  font-size: 28px !important;
-}
-
-.result-score {
-  font-size: 26px !important;
-}
-
-.rank-box {
-  font-size: 38px !important;
-  padding: 9px 8px !important;
-}
-
-.rank-comment {
-  font-size: 15px !important;
+  .rank-comment {
+    font-size:15px;
+  }
 }

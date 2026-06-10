@@ -80,17 +80,24 @@
   function resize(){
   state.dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-  const rect = document.documentElement.getBoundingClientRect();
-  state.vw = Math.round(rect.width);
-  state.vh = Math.round(rect.height);
+  const vv = window.visualViewport;
+  state.vw = Math.round(vv ? vv.width : document.documentElement.clientWidth);
+  state.vh = Math.round(vv ? vv.height : document.documentElement.clientHeight);
+
+  document.documentElement.style.setProperty('--vvw', state.vw + 'px');
+  document.documentElement.style.setProperty('--vvh', state.vh + 'px');
+  document.documentElement.style.setProperty('--vvx', (vv ? vv.offsetLeft : 0) + 'px');
+  document.documentElement.style.setProperty('--vvy', (vv ? vv.offsetTop : 0) + 'px');
 
   canvas.width = Math.floor(state.vw * state.dpr);
   canvas.height = Math.floor(state.vh * state.dpr);
   canvas.style.width = state.vw + 'px';
   canvas.style.height = state.vh + 'px';
+
   ctx.setTransform(state.dpr,0,0,state.dpr,0,0);
 }
-  window.addEventListener('resize', resize, {passive:true}); resize();
+  window.visualViewport?.addEventListener('resize', resize, {passive:true});
+window.visualViewport?.addEventListener('scroll', resize, {passive:true});
 
   function show(name){
     Object.values(screens).forEach(s=>s.classList.add('hidden'));

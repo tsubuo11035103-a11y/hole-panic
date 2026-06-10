@@ -196,13 +196,12 @@ state.countdownToken++;state.running=false; renderStageList(); show('stage'); }
   screens.intro.classList.add('hidden');
   ui.countdown.classList.remove('hidden');
 
+  play('countdown'); // 最初に1回だけ鳴らす
+
   for(const v of ['3','2','1','GO!']){
     if(token !== state.countdownToken) return;
 
     ui.countdown.textContent = v;
-
-    if(v !== 'GO!') play('countdown');
-
     await wait(v === 'GO!' ? 450 : 650);
   }
 

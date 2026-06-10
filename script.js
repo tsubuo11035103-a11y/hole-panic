@@ -78,12 +78,18 @@
   function saveBest(){ localStorage.setItem(STORAGE_BEST, JSON.stringify(state.best)); }
 
   function resize(){
-    state.dpr = Math.min(window.devicePixelRatio || 1, 2);
-    state.vw = window.innerWidth; state.vh = window.innerHeight;
-    canvas.width = Math.floor(state.vw * state.dpr); canvas.height = Math.floor(state.vh * state.dpr);
-    canvas.style.width = state.vw + 'px'; canvas.style.height = state.vh + 'px';
-    ctx.setTransform(state.dpr,0,0,state.dpr,0,0);
-  }
+  state.dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  const rect = document.documentElement.getBoundingClientRect();
+  state.vw = Math.round(rect.width);
+  state.vh = Math.round(rect.height);
+
+  canvas.width = Math.floor(state.vw * state.dpr);
+  canvas.height = Math.floor(state.vh * state.dpr);
+  canvas.style.width = state.vw + 'px';
+  canvas.style.height = state.vh + 'px';
+  ctx.setTransform(state.dpr,0,0,state.dpr,0,0);
+}
   window.addEventListener('resize', resize, {passive:true}); resize();
 
   function show(name){

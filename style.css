@@ -48,17 +48,20 @@ button, input {
 }
 
 .screen {
-  position:fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  padding:10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 10px 24px;
 }
 
 .game-window {
-  width:82vw;
+  width:100%;
   max-width:420px;
   max-height:74dvh;
   padding:18px 14px;

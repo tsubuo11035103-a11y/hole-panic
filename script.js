@@ -62,6 +62,13 @@
   button:new Audio('assets/audio/button.mp3'),
   levelup:new Audio('assets/audio/levelup.mp3')
 };
+  sounds.title.loop = true;
+sounds.game.loop = true;
+sounds.danger.loop = true;
+
+sounds.title.volume = 0.45;
+sounds.game.volume = 0.42;
+sounds.danger.volume = 0.5;
 
   const state = {
     view:'title', premium: localStorage.getItem(STORAGE_UNLOCK) === '1', sound: localStorage.getItem(STORAGE_SOUND) !== '0',
@@ -93,6 +100,25 @@ countdownToken:0,
 
   audio.volume = src.volume ?? 1;
   audio.play().catch(()=>{});
+}
+
+  function stopBgm(){
+  ['title', 'game', 'danger'].forEach(name => {
+    sounds[name].pause();
+    sounds[name].currentTime = 0;
+  });
+}
+
+function playBgm(name){
+  if(!state.sound) return;
+
+  ['title', 'game', 'danger'].forEach(n => {
+    if(n !== name) sounds[n].pause();
+  });
+
+  const bgm = sounds[name];
+  bgm.loop = true;
+  bgm.play().catch(()=>{});
 }
   function readBest(){ try{return JSON.parse(localStorage.getItem(STORAGE_BEST)||'{}')}catch{return {}} }
   function saveBest(){ localStorage.setItem(STORAGE_BEST, JSON.stringify(state.best)); }
@@ -149,10 +175,23 @@ window.visualViewport?.addEventListener('scroll', resize, {passive:true});
     });
   }
 
-  function goTitle(){ state.countingDown = false;
-state.countdownToken++;state.running=false; state.currentStage=null; updatePremiumUI(); show('title'); }
-  function goStage(){ state.countingDown = false;
-state.countdownToken++;state.running=false; renderStageList(); show('stage'); }
+  function goTitle(){
+  state.countingDown = false;
+  state.countdownToken++;
+  state.running = false;
+  state.currentStage = null;
+  updatePremiumUI();
+  show('title');
+  playBgm('title');
+}
+  function goStage(){
+  play('button');
+  state.countingDown = false;
+  state.countdownToken++;
+  state.running = false;
+  renderStageList();
+  show('stage');
+}
 
   ui.startBtn.addEventListener('click', () => { requestFs(); goStage(); });
   ui.backTitleBtn.addEventListener('click', goTitle);
@@ -233,6 +272,8 @@ state.countdownToken++;state.running=false; renderStageList(); show('stage'); }
   function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
   function startGame(st){
+    stopBgm();
+playBgm('game');
     state.dangerMode = false;
     requestFs(); show(null); ui.hud.classList.remove('hidden');
     const scale = st.premium ? 6 : 3.5;
@@ -398,6 +439,7 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
     ui.rankBox.textContent = `${rank.code} ${rank.label}`;
     ui.rankComment.textContent = rank.comment;
     updatePremiumUI(); show('result');
+    stopBgm();
   }
 
   function getRank(total, remain){

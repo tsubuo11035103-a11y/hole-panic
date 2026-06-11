@@ -89,17 +89,20 @@ countdownToken:0,
   function play(name){
   if(!state.sound) return;
 
-  const src = sounds[name];
-  if(!src) return;
+  const audio = sounds[name];
+  if(!audio) return;
 
-  const audio = src.cloneNode();
+  audio.currentTime = 0;
 
   if(name === 'hole'){
     audio.playbackRate = 0.9 + Math.random() * 0.2;
+  }else{
+    audio.playbackRate = 1;
   }
 
-  audio.volume = src.volume ?? 1;
-  audio.play().catch(()=>{});
+  audio.play().catch(err=>{
+    console.log(name, err);
+  });
 }
 
   function stopBgm(){

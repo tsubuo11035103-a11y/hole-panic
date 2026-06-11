@@ -198,8 +198,28 @@ window.visualViewport?.addEventListener('scroll', resize, {passive:true});
   renderStageList();
   show('stage');
 }
+  function unlockAudio(){
+  if(!state.sound) return;
 
-  ui.startBtn.addEventListener('click', () => { requestFs(); goStage(); });
+  Object.values(sounds).forEach(a => {
+    a.muted = true;
+    a.play().then(() => {
+      a.pause();
+      a.currentTime = 0;
+      a.muted = false;
+    }).catch(() => {
+      a.muted = false;
+    });
+  });
+}
+
+  ui.startBtn.addEventListener('click', () => {
+  unlockAudio();
+  play('button');
+  playBgm('title');
+  requestFs();
+  goStage();
+});
   ui.backTitleBtn.addEventListener('click', goTitle);
   ui.titleBtn.addEventListener('click', goTitle);
   ui.licenseBtn.addEventListener('click', () => { ui.licenseMessage.textContent=''; ui.licenseInput.value=''; show('license'); });
@@ -606,8 +626,4 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
   function dist(x1,y1,x2,y2){ return Math.hypot(x1-x2,y1-y2); }
 
   updatePremiumUI(); show('title'); 
-  Object.values(sounds).forEach(a=>{
-  a.load();
-});
-  playBgm('title');
 })();

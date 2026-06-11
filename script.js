@@ -49,14 +49,19 @@
   };
 
   const sounds = {
-    countdown: loadAudio('assets/sounds/countdown.mp3'),
-    collect: loadAudio('assets/sounds/collect.mp3'),
-    levelup: loadAudio('assets/sounds/levelup.mp3'),
-    fever: loadAudio('assets/sounds/fever.mp3'),
-    black: loadAudio('assets/sounds/black.mp3'),
-    clear: loadAudio('assets/sounds/clear.mp3'),
-    fail: loadAudio('assets/sounds/fail.mp3'),
-  };
+  title:new Audio('assets/audio/title.mp3'),
+  game:new Audio('assets/audio/game.mp3'),
+  danger:new Audio('assets/audio/danger.mp3'),
+
+  countdown:new Audio('assets/audio/countdown.mp3'),
+  hole:new Audio('assets/audio/hole.mp3'),
+  fever:new Audio('assets/audio/fever.mp3'),
+  black:new Audio('assets/audio/black.mp3'),
+  clear:new Audio('assets/audio/clear.mp3'),
+  fail:new Audio('assets/audio/fail.mp3'),
+  button:new Audio('assets/audio/button.mp3'),
+  levelup:new Audio('assets/audio/levelup.mp3')
+};
 
   const state = {
     view:'title', premium: localStorage.getItem(STORAGE_UNLOCK) === '1', sound: localStorage.getItem(STORAGE_SOUND) !== '0',
@@ -74,7 +79,21 @@ countdownToken:0,
 
   function loadImage(src){ const img = new Image(); img.src = src; return img; }
   function loadAudio(src){ const a = new Audio(); a.src = src; a.preload='auto'; return a; }
-  function play(name){ if(!state.sound) return; const a = sounds[name]; if(!a) return; try{ a.currentTime = 0; a.play().catch(()=>{}); }catch{} }
+  function play(name){
+  if(!state.soundOn) return;
+
+  const src = sounds[name];
+  if(!src) return;
+
+  const audio = src.cloneNode();
+
+  if(name === 'hole'){
+    audio.playbackRate = 0.9 + Math.random() * 0.2;
+  }
+
+  audio.volume = src.volume ?? 1;
+  audio.play().catch(()=>{});
+}
   function readBest(){ try{return JSON.parse(localStorage.getItem(STORAGE_BEST)||'{}')}catch{return {}} }
   function saveBest(){ localStorage.setItem(STORAGE_BEST, JSON.stringify(state.best)); }
 

@@ -605,5 +605,9 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
   function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
   function dist(x1,y1,x2,y2){ return Math.hypot(x1-x2,y1-y2); }
 
-  updatePremiumUI(); show('title'); playBgm('title');
+  updatePremiumUI(); show('title'); 
+  Object.values(sounds).forEach(a=>{
+  a.load();
+});
+  playBgm('title');
 })();

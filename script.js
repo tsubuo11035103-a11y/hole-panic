@@ -113,8 +113,11 @@ function playBgm(name){
   if(!state.sound) return;
 
   ['title', 'game', 'danger'].forEach(n => {
-    if(n !== name) sounds[n].pause();
-  });
+  if(n !== name){
+    sounds[n].pause();
+    sounds[n].currentTime = 0;
+  }
+});
 
   const bgm = sounds[name];
   bgm.loop = true;
@@ -341,11 +344,7 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
     updateHoleSize(now); updateEntities(dt, now); updateParticles(dt); updateHud();
     if(state.timeLeft <= 10 && !state.dangerMode){
   state.dangerMode = true;
-
-  sounds.game.pause();
-
-  sounds.danger.currentTime = 0;
-  sounds.danger.play().catch(()=>{});
+  playBgm('danger');
 }
   }
 
@@ -603,5 +602,5 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
   function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
   function dist(x1,y1,x2,y2){ return Math.hypot(x1-x2,y1-y2); }
 
-  updatePremiumUI(); show('title');
+  updatePremiumUI(); show('title'); playBgm('title');
 })();

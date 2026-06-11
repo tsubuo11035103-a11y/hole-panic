@@ -49,18 +49,18 @@
   };
 
   const sounds = {
-  title:new Audio('assets/audio/title.mp3'),
-  game:new Audio('assets/audio/game.mp3'),
-  danger:new Audio('assets/audio/danger.mp3'),
+  title:new Audio('assets/sounds/title.mp3'),
+  game:new Audio('assets/sounds/game.mp3'),
+  danger:new Audio('assets/sounds/danger.mp3'),
 
-  countdown:new Audio('assets/audio/countdown.mp3'),
-  hole:new Audio('assets/audio/hole.mp3'),
-  fever:new Audio('assets/audio/fever.mp3'),
-  black:new Audio('assets/audio/black.mp3'),
-  clear:new Audio('assets/audio/clear.mp3'),
-  fail:new Audio('assets/audio/fail.mp3'),
-  button:new Audio('assets/audio/button.mp3'),
-  levelup:new Audio('assets/audio/levelup.mp3')
+  countdown:new Audio('assets/sounds/countdown.mp3'),
+  hole:new Audio('assets/sounds/hole.mp3'),
+  fever:new Audio('assets/sounds/fever.mp3'),
+  black:new Audio('assets/sounds/black.mp3'),
+  clear:new Audio('assets/sounds/clear.mp3'),
+  fail:new Audio('assets/sounds/fail.mp3'),
+  button:new Audio('assets/sounds/button.mp3'),
+  levelup:new Audio('assets/sounds/levelup.mp3')
 };
   sounds.title.loop = true;
 sounds.game.loop = true;

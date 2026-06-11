@@ -80,7 +80,7 @@ countdownToken:0,
   function loadImage(src){ const img = new Image(); img.src = src; return img; }
   function loadAudio(src){ const a = new Audio(); a.src = src; a.preload='auto'; return a; }
   function play(name){
-  if(!state.soundOn) return;
+  if(!state.sound) return;
 
   const src = sounds[name];
   if(!src) return;
@@ -233,6 +233,7 @@ state.countdownToken++;state.running=false; renderStageList(); show('stage'); }
   function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
   function startGame(st){
+    state.dangerMode = false;
     requestFs(); show(null); ui.hud.classList.remove('hidden');
     const scale = st.premium ? 6 : 3.5;
     state.mapW = Math.max(state.vw * (st.premium?2.2:1.65), state.vw + 200);
@@ -297,6 +298,14 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
     state.elapsed = (now - state.startAt)/1000; state.timeLeft = Math.max(0, state.currentStage.time - state.elapsed);
     if(state.timeLeft <= 0){ finish(false); return; }
     updateHoleSize(now); updateEntities(dt, now); updateParticles(dt); updateHud();
+    if(state.timeLeft <= 10 && !state.dangerMode){
+  state.dangerMode = true;
+
+  sounds.game.pause();
+
+  sounds.danger.currentTime = 0;
+  sounds.danger.play().catch(()=>{});
+}
   }
 
   function updateHoleSize(now){
@@ -358,7 +367,13 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
 
   function collectEntity(e, now){
     e.alive=false; e.falling=.01; e.spriteKey = e.type==='black' ? 'blackFall' : e.type==='fever' ? 'feverFall' : 'fall';
-    spawnPop(e.x,e.y,e.type); play(e.type==='fever'?'fever':e.type==='black'?'black':'collect');
+    spawnPop(e.x,e.y,e.type); play(
+  e.type === 'fever'
+    ? 'fever'
+    : e.type === 'black'
+    ? 'black'
+    : 'hole'
+);
     if(e.type==='fever'){ state.feverUntil = now + 10000; state.score += 5; }
     else if(e.type==='black'){ state.blackUntil = now + 5000; state.score = Math.max(0, state.score-2); }
     else { state.collected++; state.score++; }

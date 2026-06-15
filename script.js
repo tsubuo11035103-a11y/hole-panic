@@ -192,7 +192,6 @@ window.visualViewport?.addEventListener('scroll', resize, {passive:true});
   playBgm('title');
 }
   function goStage(){
-  play('button');
   state.countingDown = false;
   state.countdownToken++;
   state.running = false;

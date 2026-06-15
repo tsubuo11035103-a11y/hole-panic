@@ -358,6 +358,7 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
     draw(now);
     requestAnimationFrame(loop);
   }
+    resize();
   requestAnimationFrame(loop);
 
   function updateGame(dt, now){

@@ -124,12 +124,6 @@ function playBgm(name){
   audio.play().catch(err => console.log('BGM', name, err));
 }
 
-  function stopCountdownSe(){
-  // countdown.mp3 が長めの時、ゲーム開始直後のSEを潰すので止める
-  const a = new Audio(se.countdown);
-  a.pause();
-}
-
   function readBest(){ try{return JSON.parse(localStorage.getItem(STORAGE_BEST)||'{}')}catch{return {}} }
   function saveBest(){ localStorage.setItem(STORAGE_BEST, JSON.stringify(state.best)); }
 
@@ -169,7 +163,6 @@ window.visualViewport?.addEventListener('scroll', resize, {passive:true});
   ? 'つぶおのnoteへ'
   : '高難易度ステージ解放';
     ui.resultNoteLink.href = ui.noteLink.href;
-    ui.resultNoteLink.textContent = ui.noteLink.textContent;
     ui.soundBtn.textContent = `効果音：${state.sound ? 'ON' : 'OFF'}`;
   }
 
@@ -324,7 +317,7 @@ playBgm('game');
     state.mapH = Math.max(state.vh * scale, state.vh + 400);
     state.hole = { x: state.mapW/2, y: state.mapH - state.vh*0.55, r: 38, level:1 };
     state.camera = clampCamera(state.hole.x - state.vw/2, state.hole.y - state.vh/2);
-    state.entities = []; state.particles = []; state.collected=0; state.score=0; state.totalTargets=st.count; state.timeLeft=st.time; state.elapsed=0;、
+    state.entities = []; state.particles = []; state.collected=0; state.score=0; state.totalTargets=st.count; state.timeLeft=st.time; state.elapsed=0;
     state.feverUntil=0; state.blackUntil=0; state.running=true; state.startAt=performance.now(); state.lastTime=performance.now();
     spawnEntities(st); updateHud();
   }

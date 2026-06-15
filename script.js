@@ -72,6 +72,7 @@ const se = {
   button: 'assets/sounds/button.mp3',
   levelup: 'assets/sounds/levelup.mp3'
 };
+  const countdownAudio = new Audio(se.countdown);
 
   const state = {
     view:'title', premium: localStorage.getItem(STORAGE_UNLOCK) === '1', sound: localStorage.getItem(STORAGE_SOUND) !== '0',
@@ -121,6 +122,12 @@ function playBgm(name){
 
   audio.currentTime = 0;
   audio.play().catch(err => console.log('BGM', name, err));
+}
+
+  function stopCountdownSe(){
+  // countdown.mp3 が長めの時、ゲーム開始直後のSEを潰すので止める
+  const a = new Audio(se.countdown);
+  a.pause();
 }
 
   function readBest(){ try{return JSON.parse(localStorage.getItem(STORAGE_BEST)||'{}')}catch{return {}} }
@@ -286,7 +293,8 @@ window.visualViewport?.addEventListener('scroll', resize, {passive:true});
   screens.intro.classList.add('hidden');
   ui.countdown.classList.remove('hidden');
 
-  play('countdown'); // 最初に1回だけ鳴らす
+  countdownAudio.currentTime = 0;
+countdownAudio.play().catch(()=>{});
 
   for(const v of ['3','2','1','GO!']){
     if(token !== state.countdownToken) return;
@@ -304,6 +312,9 @@ window.visualViewport?.addEventListener('scroll', resize, {passive:true});
   function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
   function startGame(st){
+    countdownAudio.pause();
+countdownAudio.currentTime = 0;
+    stopCountdownSe();
     stopBgm();
 playBgm('game');
     state.dangerMode = false;
@@ -313,7 +324,7 @@ playBgm('game');
     state.mapH = Math.max(state.vh * scale, state.vh + 400);
     state.hole = { x: state.mapW/2, y: state.mapH - state.vh*0.55, r: 38, level:1 };
     state.camera = clampCamera(state.hole.x - state.vw/2, state.hole.y - state.vh/2);
-    state.entities = []; state.particles = []; state.collected=0; state.score=0; state.totalTargets=st.count; state.timeLeft=st.time; state.elapsed=0;
+    state.entities = []; state.particles = []; state.collected=0; state.score=0; state.totalTargets=st.count; state.timeLeft=st.time; state.elapsed=0;、
     state.feverUntil=0; state.blackUntil=0; state.running=true; state.startAt=performance.now(); state.lastTime=performance.now();
     spawnEntities(st); updateHud();
   }

@@ -226,7 +226,10 @@ window.visualViewport?.addEventListener('scroll', resize, {passive:true});
   ui.soundBtn.addEventListener('click', () => { state.sound=!state.sound; localStorage.setItem(STORAGE_SOUND, state.sound?'1':'0'); updatePremiumUI(); });
   ui.imageBtn.addEventListener('click', () => ui.imageInput.click());
   ui.imageInput.addEventListener('change', handleImageUpload);
-  ui.retryBtn.addEventListener('click', () => { if(state.currentStage) selectStage(state.currentStage); });
+  ui.retryBtn.addEventListener('click', () => {
+  stopBgm();
+  if(state.currentStage) selectStage(state.currentStage);
+});
   ui.stageSelectBtn.addEventListener('click', goStage);
   ui.unlockBtn.addEventListener('click', unlockPremium);
 
@@ -454,8 +457,11 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
 state.running = false;
 stopBgm();
     setTimeout(() => {
-    play(clear ? 'clear' : 'fail');
-  }, 80);
+  const name = clear ? 'clear' : 'fail';
+  sounds[name].pause();
+  sounds[name].currentTime = 0;
+  play(name);
+}, 120);
     
     const elapsed = state.elapsed; const rank = clear ? getRank(state.currentStage.time, state.timeLeft) : {code:'C', label:'しっぱい', comment:'ざんねん！もういちどチャレンジ！'};
     if(clear){ const prev = state.best[state.currentStage.id]; if(!prev || elapsed < prev.time){ state.best[state.currentStage.id] = {time:elapsed, rank:rank.code}; saveBest(); } }

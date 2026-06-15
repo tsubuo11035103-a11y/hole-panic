@@ -89,15 +89,14 @@ countdownToken:0,
   function play(name){
   if(!state.sound) return;
 
-  const audio = sounds[name];
-  if(!audio) return;
+  const src = sounds[name];
+  if(!src) return;
 
-  audio.currentTime = 0;
+  const audio = new Audio(src.src);
+  audio.volume = src.volume || 1;
 
   if(name === 'hole'){
     audio.playbackRate = 0.9 + Math.random() * 0.2;
-  }else{
-    audio.playbackRate = 1;
   }
 
   audio.play().catch(err=>{
@@ -451,7 +450,10 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
   function updateParticles(dt){ state.particles.forEach(p=>{p.t+=dt;p.y+=p.vy*dt}); state.particles=state.particles.filter(p=>p.t<1); }
 
   function finish(clear){
-    if(!state.running) return; state.running=false; play(clear?'clear':'fail');
+    if(!state.running) return;
+state.running = false;
+stopBgm();
+play(clear ? 'clear' : 'fail');
     const elapsed = state.elapsed; const rank = clear ? getRank(state.currentStage.time, state.timeLeft) : {code:'C', label:'しっぱい', comment:'ざんねん！もういちどチャレンジ！'};
     if(clear){ const prev = state.best[state.currentStage.id]; if(!prev || elapsed < prev.time){ state.best[state.currentStage.id] = {time:elapsed, rank:rank.code}; saveBest(); } }
     ui.resultTitle.textContent = clear ? 'クリア！' : 'しっぱい！';
@@ -461,7 +463,7 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
     ui.rankBox.textContent = `${rank.code} ${rank.label}`;
     ui.rankComment.textContent = rank.comment;
     updatePremiumUI(); show('result');
-    stopBgm();
+  
   }
 
   function getRank(total, remain){

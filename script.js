@@ -72,13 +72,6 @@ const se = {
   button: 'assets/sounds/button.mp3',
   levelup: 'assets/sounds/levelup.mp3'
 };
-  sounds.title.loop = true;
-sounds.game.loop = true;
-sounds.danger.loop = true;
-
-sounds.title.volume = 0.45;
-sounds.game.volume = 0.42;
-sounds.danger.volume = 0.5;
 
   const state = {
     view:'title', premium: localStorage.getItem(STORAGE_UNLOCK) === '1', sound: localStorage.getItem(STORAGE_SOUND) !== '0',
@@ -220,7 +213,6 @@ window.visualViewport?.addEventListener('scroll', resize, {passive:true});
 
   ui.startBtn.addEventListener('click', () => {
   play('button');
-  playBgm('title');
   requestFs();
   goStage();
 });
@@ -462,10 +454,7 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
 state.running = false;
 stopBgm();
     setTimeout(() => {
-  const name = clear ? 'clear' : 'fail';
-  sounds[name].pause();
-  sounds[name].currentTime = 0;
-  play(name);
+  play(clear ? 'clear' : 'fail');
 }, 120);
     
     const elapsed = state.elapsed; const rank = clear ? getRank(state.currentStage.time, state.timeLeft) : {code:'C', label:'しっぱい', comment:'ざんねん！もういちどチャレンジ！'};

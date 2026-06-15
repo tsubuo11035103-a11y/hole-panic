@@ -349,6 +349,7 @@ button, input {
   font-weight:900;
   line-height:1.35;
   margin:6px 0 12px;
+  white-space: pre-line;
 }
 
 @keyframes pop {

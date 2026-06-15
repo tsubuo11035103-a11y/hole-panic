@@ -459,7 +459,6 @@ stopBgm();
     play(clear ? 'clear' : 'fail');
   }, 80);
     
-play(clear ? 'clear' : 'fail');
     const elapsed = state.elapsed; const rank = clear ? getRank(state.currentStage.time, state.timeLeft) : {code:'C', label:'しっぱい', comment:'ざんねん！もういちどチャレンジ！'};
     if(clear){ const prev = state.best[state.currentStage.id]; if(!prev || elapsed < prev.time){ state.best[state.currentStage.id] = {time:elapsed, rank:rank.code}; saveBest(); } }
     ui.resultTitle.textContent = clear ? 'クリア！' : 'しっぱい！';

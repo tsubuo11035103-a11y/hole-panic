@@ -227,7 +227,11 @@ window.visualViewport?.addEventListener('scroll', resize, {passive:true});
   stopBgm();
   if(state.currentStage) selectStage(state.currentStage);
 });
-  ui.stageSelectBtn.addEventListener('click', goStage);
+  ui.stageSelectBtn.addEventListener('click', () => {
+  play('button');
+  unlockAudio();
+  goStage();
+});
   ui.unlockBtn.addEventListener('click', unlockPremium);
 
   function requestFs(){
@@ -257,6 +261,9 @@ window.visualViewport?.addEventListener('scroll', resize, {passive:true});
 
   function selectStage(st){
   if(state.countingDown || state.running) return;
+
+  unlockAudio();
+  play('button');
 
   state.countingDown = true;
   state.countdownToken++;

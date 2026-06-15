@@ -206,7 +206,7 @@ window.visualViewport?.addEventListener('scroll', resize, {passive:true});
   function unlockAudio(){
   if(!state.sound) return;
 
-  Object.values(sounds).forEach(a => {
+  Object.values(bgm).forEach(a => {
     a.muted = true;
     a.play().then(() => {
       a.pause();

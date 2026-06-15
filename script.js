@@ -307,7 +307,6 @@ countdownAudio.play().catch(()=>{});
   function startGame(st){
     countdownAudio.pause();
 countdownAudio.currentTime = 0;
-    stopCountdownSe();
     stopBgm();
 playBgm('game');
     state.dangerMode = false;

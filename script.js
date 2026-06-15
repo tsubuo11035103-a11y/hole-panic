@@ -160,7 +160,9 @@ window.visualViewport?.addEventListener('scroll', resize, {passive:true});
   function updatePremiumUI(){
     document.querySelectorAll('.premium-only').forEach(el=>el.classList.toggle('hidden', !state.premium));
     ui.noteLink.href = state.premium ? TSUBUO_NOTE_URL : PAID_NOTE_URL;
-    ui.noteLink.textContent = state.premium ? 'つぶおのnote' : 'note有料記事へ';
+    ui.resultNoteLink.textContent = state.premium
+  ? 'つぶおのnoteへ'
+  : '高難易度ステージ解放';
     ui.resultNoteLink.href = ui.noteLink.href;
     ui.resultNoteLink.textContent = ui.noteLink.textContent;
     ui.soundBtn.textContent = `効果音：${state.sound ? 'ON' : 'OFF'}`;

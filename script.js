@@ -214,7 +214,6 @@ window.visualViewport?.addEventListener('scroll', resize, {passive:true});
 }
 
   ui.startBtn.addEventListener('click', () => {
-  unlockAudio();
   play('button');
   playBgm('title');
   requestFs();

@@ -48,19 +48,29 @@
     icon:'assets/icon.png'
   };
 
-  const sounds = {
-  title:new Audio('assets/sounds/title.mp3'),
-  game:new Audio('assets/sounds/game.mp3'),
-  danger:new Audio('assets/sounds/danger.mp3'),
+  const bgm = {
+  title: new Audio('assets/sounds/title.mp3'),
+  game: new Audio('assets/sounds/game.mp3'),
+  danger: new Audio('assets/sounds/danger.mp3')
+};
 
-  countdown:new Audio('assets/sounds/countdown.mp3'),
-  hole:new Audio('assets/sounds/hole.mp3'),
-  fever:new Audio('assets/sounds/fever.mp3'),
-  black:new Audio('assets/sounds/black.mp3'),
-  clear:new Audio('assets/sounds/clear.mp3'),
-  fail:new Audio('assets/sounds/fail.mp3'),
-  button:new Audio('assets/sounds/button.mp3'),
-  levelup:new Audio('assets/sounds/levelup.mp3')
+bgm.title.loop = true;
+bgm.game.loop = true;
+bgm.danger.loop = true;
+
+bgm.title.volume = 0.45;
+bgm.game.volume = 0.42;
+bgm.danger.volume = 0.5;
+
+const se = {
+  countdown: 'assets/sounds/countdown.mp3',
+  hole: 'assets/sounds/hole.mp3',
+  fever: 'assets/sounds/fever.mp3',
+  black: 'assets/sounds/black.mp3',
+  clear: 'assets/sounds/clear.mp3',
+  fail: 'assets/sounds/fail.mp3',
+  button: 'assets/sounds/button.mp3',
+  levelup: 'assets/sounds/levelup.mp3'
 };
   sounds.title.loop = true;
 sounds.game.loop = true;
@@ -89,42 +99,37 @@ countdownToken:0,
   function play(name){
   if(!state.sound) return;
 
-  const src = sounds[name];
+  const src = se[name];
   if(!src) return;
 
-  const audio = new Audio(src.src);
-  audio.volume = src.volume || 1;
+  const audio = new Audio(src);
 
   if(name === 'hole'){
     audio.playbackRate = 0.9 + Math.random() * 0.2;
   }
 
-  audio.play().catch(err=>{
-    console.log(name, err);
-  });
+  audio.play().catch(err => console.log('SE', name, err));
 }
 
-  function stopBgm(){
-  ['title', 'game', 'danger'].forEach(name => {
-    sounds[name].pause();
-    sounds[name].currentTime = 0;
+function stopBgm(){
+  Object.values(bgm).forEach(a => {
+    a.pause();
+    a.currentTime = 0;
   });
 }
 
 function playBgm(name){
   if(!state.sound) return;
 
-  ['title', 'game', 'danger'].forEach(n => {
-  if(n !== name){
-    sounds[n].pause();
-    sounds[n].currentTime = 0;
-  }
-});
+  stopBgm();
 
-  const bgm = sounds[name];
-  bgm.loop = true;
-  bgm.play().catch(()=>{});
+  const audio = bgm[name];
+  if(!audio) return;
+
+  audio.currentTime = 0;
+  audio.play().catch(err => console.log('BGM', name, err));
 }
+
   function readBest(){ try{return JSON.parse(localStorage.getItem(STORAGE_BEST)||'{}')}catch{return {}} }
   function saveBest(){ localStorage.setItem(STORAGE_BEST, JSON.stringify(state.best)); }
 

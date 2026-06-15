@@ -474,10 +474,10 @@ play(clear ? 'clear' : 'fail');
 
   function getRank(total, remain){
     const r = remain / total;
-    if(r >= .66) return {code:'SS', label:'プロ', comment:'きみはホールのプロ！/nつぶおたちもびっくり！'};
-    if(r >= .40) return {code:'S', label:'たつじん', comment:'すごい！/nホールのたつじんだ！'};
-    if(r >= .15) return {code:'A', label:'ふつう', comment:'クリア！/nつぎはSをめざそう！'};
-    return {code:'B', label:'ギリギリ', comment:'なんとかクリア！/nあぶなかった〜！'};
+    if(r >= .66) return {code:'SS', label:'プロ', comment:'きみはホールのプロ！\nつぶおたちもびっくり！'};
+    if(r >= .40) return {code:'S', label:'たつじん', comment:'すごい！\nホールのたつじんだ！'};
+    if(r >= .15) return {code:'A', label:'ふつう', comment:'クリア！\nつぎはSをめざそう！'};
+    return {code:'B', label:'ギリギリ', comment:'なんとかクリア！\nあぶなかった〜！'};
   }
 
   function updateHud(){ ui.scoreText.textContent = `${state.collected}/${state.totalTargets}`; ui.timeText.textContent = Math.ceil(state.timeLeft); }

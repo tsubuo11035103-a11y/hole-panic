@@ -453,6 +453,10 @@ state.camera.y += (desired.y - state.camera.y) * 0.08;
     if(!state.running) return;
 state.running = false;
 stopBgm();
+    setTimeout(() => {
+    play(clear ? 'clear' : 'fail');
+  }, 80);
+    
 play(clear ? 'clear' : 'fail');
     const elapsed = state.elapsed; const rank = clear ? getRank(state.currentStage.time, state.timeLeft) : {code:'C', label:'しっぱい', comment:'ざんねん！もういちどチャレンジ！'};
     if(clear){ const prev = state.best[state.currentStage.id]; if(!prev || elapsed < prev.time){ state.best[state.currentStage.id] = {time:elapsed, rank:rank.code}; saveBest(); } }
@@ -468,10 +472,10 @@ play(clear ? 'clear' : 'fail');
 
   function getRank(total, remain){
     const r = remain / total;
-    if(r >= .66) return {code:'SS', label:'プロ', comment:'きみはホールのプロ！つぶおたちもびっくり！'};
-    if(r >= .40) return {code:'S', label:'たつじん', comment:'すごい！ホールのたつじんだ！'};
-    if(r >= .15) return {code:'A', label:'ふつう', comment:'クリア！つぎはSをめざそう！'};
-    return {code:'B', label:'ギリギリ', comment:'なんとかクリア！あぶなかった〜！'};
+    if(r >= .66) return {code:'SS', label:'プロ', comment:'きみはホールのプロ！/nつぶおたちもびっくり！'};
+    if(r >= .40) return {code:'S', label:'たつじん', comment:'すごい！/nホールのたつじんだ！'};
+    if(r >= .15) return {code:'A', label:'ふつう', comment:'クリア！/nつぎはSをめざそう！'};
+    return {code:'B', label:'ギリギリ', comment:'なんとかクリア！/nあぶなかった〜！'};
   }
 
   function updateHud(){ ui.scoreText.textContent = `${state.collected}/${state.totalTargets}`; ui.timeText.textContent = Math.ceil(state.timeLeft); }
